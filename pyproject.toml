@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wt-wrangler"
+version = "0.1.0"
+description = "Browse, search, summon and close Windows Terminal tabs from the browser."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [{ name = "forensicmike" }]
+keywords = ["windows-terminal", "tabs", "ui-automation", "fastapi"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Environment :: Console",
+    "Framework :: FastAPI",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "comtypes",
+]
+
+[project.urls]
+Homepage = "https://github.com/forensicmike/wt-wrangler"
+Repository = "https://github.com/forensicmike/wt-wrangler"
+
+[project.scripts]
+wt-wrangler = "wt_wrangler.server:main"
+wtw = "wt_wrangler.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["wt_wrangler"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+preview = true
+select = [
+    "I", "E", "W", "EM", "F", "UP", "B", "S", "ARG",
+    "D", "COM", "Q", "SIM", "PLR", "TD", "FIX",
+]
+ignore = [
+    "E111", "E114", "E117", "E501", "W191", "EM101",
+    "D100", "D104", "D203", "D206",
+    "COM812", "COM819",
+    "Q000", "Q001", "Q002", "Q003",
+    "PLR0904", "PLR0913", "PLR0914",
+    "TD002", "TD003", "FIX002",
+]
+fixable = ["ALL"]
+unfixable = ["D"]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wt-wrangler</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314b8a6'/%3E%3Cpath d='M8 11l5 5-5 5' fill='none' stroke='%23042f2e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 22h8' stroke='%23042f2e' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true">&gt;_</span>
+        <h1>wt-wrangler</h1>
+        <span class="brand__count" id="count">—</span>
+      </div>
+      <div class="topbar__actions">
+        <label class="toggle" title="Auto-refresh the tab list">
+          <input type="checkbox" id="autoRefresh" checked />
+          <span>Live</span>
+        </label>
+        <button class="iconbtn" id="refreshBtn" title="Refresh now (R)" aria-label="Refresh">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 11a8 8 0 1 0-2.3 5.7M20 4v5h-5"/></svg>
+        </button>
+        <button class="iconbtn" id="helpBtn" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">
+          <svg viewBox="0 0 24 24" width="18" height="18"><rect x="2" y="6" width="20" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="searchbar">
+      <svg class="searchbar__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="text" placeholder="Search tabs…  (start typing)" autocomplete="off" spellcheck="false" />
+      <button class="searchbar__clear hidden" id="clearBtn" title="Clear (Esc)" aria-label="Clear search">&times;</button>
+    </div>
+
+    <main class="list" id="list" aria-live="polite"></main>
+
+    <div class="emptystate hidden" id="empty">
+      <p id="emptyMsg">No Windows Terminal tabs found.</p>
+    </div>
+  </div>
+
+  <!-- Confirm modal -->
+  <div class="modal-backdrop hidden" id="confirmModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <h2 id="confirmTitle">Close tab?</h2>
+      <p class="modal__body" id="confirmBody"></p>
+      <p class="modal__note">This may end a running shell or process.</p>
+      <div class="modal__actions">
+        <button class="btn" id="confirmCancel">Cancel</button>
+        <button class="btn btn--danger" id="confirmOk">Close tab</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help modal -->
+  <div class="modal-backdrop hidden" id="helpModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <h2 id="helpTitle">Keyboard shortcuts</h2>
+      <ul class="shortcuts">
+        <li><kbd>type</kbd><span>Filter tabs</span></li>
+        <li><kbd>&uarr;</kbd><kbd>&darr;</kbd><span>Move selection</span></li>
+        <li><kbd>Enter</kbd><span>Summon selected tab</span></li>
+        <li><kbd>Delete</kbd><span>Close selected tab</span></li>
+        <li><kbd>R</kbd><span>Refresh list</span></li>
+        <li><kbd>Esc</kbd><span>Clear search / close dialog</span></li>
+        <li><kbd>?</kbd><span>This help</span></li>
+      </ul>
+      <p class="modal__note">All actions are also available with the mouse.</p>
+      <div class="modal__actions">
+        <button class="btn" id="helpClose">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
